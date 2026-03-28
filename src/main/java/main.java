@@ -1,12 +1,14 @@
-import database.SchemeManager;
+import database.DatabaseInitializer;
+import database.UserDAO;
+import model.User;
 
 import java.util.List;
 
 public class main {
     public static void main(String[] args){
-        SchemeManager.InitializeDatabase();
+        DatabaseInitializer.initialize();
 
-        List<String> users = SchemeManager.getAll();
+        List<String> users = UserDAO.UsergetAll();
         users.forEach(System.out::println);
     }
 }
