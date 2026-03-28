@@ -23,4 +23,5 @@ public class WorkStation {
     public boolean isAvailable() {
         return isAvailable && !isBroken;
     }
+
 }
