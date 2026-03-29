@@ -1,39 +1,47 @@
 package model;
 
-import database.WorkstationDAO;
-
 public class WorkStation {
+
     private int computerId;
     private String specs;
     private boolean isAvailable;
     private boolean isBroken;
 
-    public void SetBroken(int computerId,Boolean isBroken){
-
+    // 🔹 Constructor
+    public WorkStation(int computerId, String specs, boolean isAvailable, boolean isBroken) {
         this.computerId = computerId;
+        this.specs = specs;
+        this.isAvailable = isAvailable;
         this.isBroken = isBroken;
-
-        WorkstationDAO.updateBroken(computerId, isBroken);
-    }
-    public void SetSpecs(int computerId,String Specs){
-
-        this.computerId = computerId;
-        this.specs = Specs;
-
-        WorkstationDAO.updateSpecifications(computerId, Specs);
-    }
-    public void setInUse(int computerId,Boolean inUse){
-
-        this.computerId = computerId;
-
-        WorkstationDAO.updateAvailability(computerId, inUse);
     }
 
-    public void GetWorkstations() {
-        WorkstationDAO.getAllWorkstation();
-    }
-    public void isAvailable() {
-        WorkstationDAO.CheckAvailability();
+    // 🔹 Getters
+    public int getComputerId() {
+        return computerId;
     }
 
+    public String getSpecs() {
+        return specs;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public boolean isBroken() {
+        return isBroken;
+    }
+
+    // 🔹 Setters (NO DATABASE CALLS HERE)
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setBroken(boolean broken) {
+        isBroken = broken;
+    }
 }
