@@ -28,6 +28,19 @@ public class DatabaseInitializer {
                 )
             """);
 
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS sessions (
+                    session_id INTEGER PRIMARY KEY,
+                    computer_id INTEGER NOT NULL,
+                    username VARCHAR(50) NOT NULL,
+                    start_time TIMESTAMP NOT NULL,
+                    end_time TIMESTAMP,
+                    hourly_rate DOUBLE NOT NULL,
+                    is_active BOOLEAN DEFAULT TRUE,
+                    total_cost DOUBLE
+                )
+            """);
+
         } catch (Exception e) {
             throw new RuntimeException("Database initialization failed", e);
         }

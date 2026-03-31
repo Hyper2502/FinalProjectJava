@@ -5,7 +5,7 @@ import java.time.Duration;
 
 public class Session {
 
-    private int sessionsId;
+    private int sessionId;
     private int computerId;
     private String username;
     private LocalDateTime startTime;
@@ -14,15 +14,27 @@ public class Session {
     private double HourlyRate;
 
     public Session(int sessionsId, int computerId, String
-            username,double hourlyRate) {
+            username, double hourlyRate) {
 
-        this.sessionsId = sessionsId;
+        this.sessionId = sessionsId;
         this.computerId = computerId;
         this.username = username;
         this.HourlyRate = hourlyRate;
         this.startTime = LocalDateTime.now();
-
         this.isActive = true;
+    }
+    Session(int sessionsId, int computerId, String username,
+            double HourlyRate,
+            LocalDateTime StartTime, LocalDateTime EndTime,
+            boolean isActive) {
+
+        this.sessionId = sessionsId;
+        this.computerId = computerId;
+        this.username = username;
+        this.HourlyRate = HourlyRate;
+        this.startTime = StartTime;
+        this.endTime = EndTime;
+        this.isActive = isActive;
     }
     public void endSession() {
         this.endTime = LocalDateTime.now();
@@ -37,8 +49,8 @@ public class Session {
     public double calculateCost() {
         return (getDurationMinutes() / 60.0) * HourlyRate;
     }
-    public int getSessionsId() {
-        return sessionsId;
+    public int getSessionId() {
+        return sessionId;
     }
     public int getComputerId() {
         return computerId;
@@ -54,5 +66,8 @@ public class Session {
     }
     public boolean isActive() {
         return isActive;
+    }
+    public double getHourlyRate() {
+        return HourlyRate;
     }
 }
