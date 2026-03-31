@@ -1,5 +1,7 @@
 package manager;
 
+import database.UserDAO;
+import database.WorkstationDAO;
 import model.Session;
 import database.SessionDAO;
 import java.util.ArrayList;
@@ -30,26 +32,53 @@ public class SessionManager {
         }
     }
 
-    public Session startSession(int computerId, String
-            username) {
-        if (isComputerInUse(computerId)) {
-            throw new IllegalStateException("The Computer "
-                    + computerId + " is busy ");
+    public Session startSession(int computerId, String username) {
+
+        // 🔹 Validate inputs
+        if (!WorkstationDAO.ComputerIDValidation(computerId)) {
+            throw new IllegalStateException("Computer does not exist.");
         }
-        Session s = new Session(nextSessionId++, computerId, username, DEFAULT_RATE);
-        sessions.add(s);
-        return s;
+
+        if (!UserDAO.ValidateUsername(username)) {
+            throw new IllegalStateException("User does not exist.");
+        }
+
+        // 🔹 Check availability
+        if (!WorkstationDAO.ReturnUsage(computerId)) {
+            throw new IllegalStateException("Computer is not available.");
+        }
+
+        int userID = UserDAO.getUserID(username);
+
+        // 🔹 Create session (ID will be assigned by DB)
+        if(userID >= 0) {
+            Session session = new Session(0, computerId, userID, DEFAULT_RATE);
+            Session savedSession = sessionDAO.saveSession(session);
+            WorkstationDAO.updateAvailability(computerId, false);
+            return savedSession;
+        }else{
+            throw new IllegalStateException("Not Valid User ID");
+        }
+
     }
 
     public boolean endSession(int sessionId) {
-        for (Session s : sessions) {
-            if (s.getSessionId() == sessionId &&
-                    s.isActive()) {
-                s.endSession();
-                return true;
-            }
+        Session session = sessionDAO.getSessionById(sessionId);
+
+        if (session == null){
+            return false;
         }
-        return false;
+        if (!session.isActive()){
+            return false;
+        }
+        session.endSession();
+        sessionDAO.updateSession(session);
+
+        WorkstationDAO.updateAvailability(session.getComputerId(), true);
+
+        System.out.println("Session " + sessionId + " ended. Total: $" + session.calculateCost());
+
+        return true;
     }
 
     public boolean isComputerInUse(int computerId) {

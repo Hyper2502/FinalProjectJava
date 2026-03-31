@@ -11,7 +11,7 @@ public class  BillingManager {
         receipt.append("---Cyber Cafe Receipt : ---\n");
         receipt.append("Session ID:").append(session.getSessionId()).append("\n");
         receipt.append("Computer ID:").append(session.getComputerId()).append("\n");
-        receipt.append("User:").append(session.getUsername()).append("\n");
+        receipt.append("User:").append(session.getUserID()).append("\n");
         receipt.append("Start:").append(fmt.format(session.getStartTime())).append("\n");
 
         if (!session.isActive()){

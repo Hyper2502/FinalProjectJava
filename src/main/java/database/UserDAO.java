@@ -46,6 +46,26 @@ public class UserDAO {
         }
     }
 
+    public static int getUserID(String username) {
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             PreparedStatement ps = c.prepareStatement(
+                     "SELECT id FROM users WHERE username = ?")) {
+
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int userID = rs.getInt("id");
+                return  userID;
+            }else {
+                return -1;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // 🔹 UPDATE USERNAME
     public static boolean updateUsername(String oldUsername, String newUsername) {
         try (Connection c = DriverManager.getConnection(DB_URL);
@@ -95,6 +115,33 @@ public class UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean ValidateUsername(String username) {
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             PreparedStatement st = c.prepareStatement(
+                     "SELECT username from users WHERE username = ?")) {
+
+            st.setString(1, username);
+
+
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()){
+                String foundUsername = rs.getString("username");
+                System.out.println("Username found!: " + foundUsername);
+                return  true;
+            }else {
+                System.out.println("Username was not found.");
+                return  false;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     // 🔹 READ ALL USERS
     public static List<String> UsergetAll() {

@@ -120,28 +120,57 @@ public class WorkstationDAO {
 
         return list;
     }
-
-    public static List<String> CheckAvailability() {
-        List<String> list = new ArrayList<>();
+    public static boolean ComputerIDValidation(int computerID) {
 
         try (Connection c = DriverManager.getConnection(DB_URL);
-             Statement s = c.createStatement();
-             ResultSet rs = s.executeQuery(
-                     "SELECT computerID, specifications from workstation WHERE IsBroken = false and IsAvailable = TRUE")) {
+             PreparedStatement st = c.prepareStatement(
+                     "SELECT 1 FROM workstation WHERE computerID = ?")) {
 
-            while (rs.next()) {
-                String workstation = String.format("%d: %s",
-                        rs.getInt("computerID"),
-                        rs.getString("specifications")
-                );
+            st.setInt(1, computerID);
 
-                list.add(workstation);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                int foundId = rs.getInt("computerID");
+                System.out.println("Found computerID: " + foundId);
+                return true;
+            } else {
+                System.out.println("No matching computerID found.");
+                return false; // 👈 important
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        return list;
+    public static boolean ReturnUsage(int computerID) {
+
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             PreparedStatement st = c.prepareStatement(
+                     "SELECT IsAvailable, IsBroken FROM workstation WHERE computerID = ?")) {
+
+            st.setInt(1, computerID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                boolean foundAvailability = rs.getBoolean("IsAvailable");
+                boolean foundBroken = rs.getBoolean("IsBroken");
+                if(foundAvailability && !foundBroken){
+                    System.out.println("Computer Available");
+                    return true;
+                }else{
+                    System.out.println("Computer not Available");
+                    return false;
+                }
+            } else {
+                System.out.println("No matching computerID found.");
+                return false; // 👈 important
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

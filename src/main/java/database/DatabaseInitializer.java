@@ -9,6 +9,8 @@ public class DatabaseInitializer {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
+            stmt.execute("DROP TABLE IF EXISTS sessions");
+
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -29,17 +31,19 @@ public class DatabaseInitializer {
             """);
 
             stmt.execute("""
-                CREATE TABLE IF NOT EXISTS sessions (
-                    session_id INTEGER PRIMARY KEY,
-                    computer_id INTEGER NOT NULL,
-                    username VARCHAR(50) NOT NULL,
-                    start_time TIMESTAMP NOT NULL,
-                    end_time TIMESTAMP,
-                    hourly_rate DOUBLE NOT NULL,
-                    is_active BOOLEAN DEFAULT TRUE,
-                    total_cost DOUBLE
-                )
-            """);
+    CREATE TABLE IF NOT EXISTS sessions (
+        session_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+        computer_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        start_time TIMESTAMP NOT NULL,
+        end_time TIMESTAMP,
+        hourly_rate DOUBLE NOT NULL,
+        is_active BOOLEAN DEFAULT TRUE,
+        total_cost DOUBLE,
+        FOREIGN KEY (computer_id) REFERENCES workstation(computerID),
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+""");
 
         } catch (Exception e) {
             throw new RuntimeException("Database initialization failed", e);

@@ -1,2 +1,102 @@
 2026-03-26 17:30:45.773222-06:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-224]
+2026-03-30 21:23:45.039368-06:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "USER_ID" not found; SQL statement:
+    CREATE TABLE IF NOT EXISTS sessions (
+        session_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+        computer_id INTEGER NOT NULL,
+        username VARCHAR(50) NOT NULL,
+        start_time TIMESTAMP NOT NULL,
+        end_time TIMESTAMP,
+        hourly_rate DOUBLE NOT NULL,
+        is_active BOOLEAN DEFAULT TRUE,
+        total_cost DOUBLE,
+        FOREIGN KEY (computer_id) REFERENCES workstation(computerID),
+        FOREIGN KEY (user_id) REFERENCES users(id)
+  [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:759)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:215)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at database.DatabaseInitializer.initialize(DatabaseInitializer.java:33)
+	at main.main(main.java:15)
+2026-03-30 21:24:24.286866-06:00 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "USERNAME" not found; SQL statement:
+INSERT INTO sessions(computer_id, username, start_time, end_time, hourly_rate, is_active, total_cost)
+VALUES(?,?,?,?,?,?,?)
+ [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:759)
+	at org.h2.command.Parser.parseColumn(Parser.java:1190)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1175)
+	at org.h2.command.Parser.parseInsert(Parser.java:1549)
+	at org.h2.command.Parser.parsePrepared(Parser.java:719)
+	at org.h2.command.Parser.parse(Parser.java:592)
+	at org.h2.command.Parser.parse(Parser.java:564)
+	at org.h2.command.Parser.prepareCommand(Parser.java:483)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1094)
+	at database.SessionDAO.saveSession(SessionDAO.java:19)
+	at main.main(main.java:31)
+2026-03-30 22:03:15.781623-06:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "4 (SESSIONS: ""START_TIME"" TIMESTAMP NOT NULL)"; SQL statement:
+     INSERT INTO sessions
+    (computer_id, user_id, start_time, end_time, hourly_rate, is_active, total_cost)
+     VALUES (?, ?, ?, ?, ?,  [22018-224]
+2026-03-30 22:05:31.330417-06:00 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "username" not found [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at main.main(main.java:41)
+2026-03-30 22:08:38.811676-06:00 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at main.main(main.java:41)
+2026-03-30 22:10:09.375915-06:00 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "computerID" not found [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at database.WorkstationDAO.ComputerIDValidation(WorkstationDAO.java:134)
+	at main.main(main.java:29)
+2026-03-30 22:10:37.495742-06:00 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
+	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at main.main(main.java:41)
