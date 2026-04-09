@@ -9,7 +9,6 @@ public class DatabaseInitializer {
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            stmt.execute("DROP TABLE IF EXISTS sessions");
 
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS users (
