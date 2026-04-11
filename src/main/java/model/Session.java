@@ -4,44 +4,49 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Session {
-
-    private String username;
     private int sessionId;
-    private int computerId;
-    private int userID;
-    private LocalDateTime startTime;
+    private final int computerId;
+    private final int userId;
+    private String username;
+    private final LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean isActive;
-    private double hourlyRate;
+    private final double hourlyRate;
+    private double totalCost;
 
-    // 🔹 Constructor for NEW session
-    public Session(int sessionId, int computerId, int username, double hourlyRate) {
+    // Constructor for NEW session FIXED
+    public Session(int sessionId, int computerId, int userId, double hourlyRate) {
         this.sessionId = sessionId;
         this.computerId = computerId;
-        this.userID = username;
+        this.userId = userId;
         this.hourlyRate = hourlyRate;
         this.startTime = LocalDateTime.now();
         this.isActive = true;
+        this.totalCost = 0.0;
     }
 
-    // 🔹 Constructor for DB loading
-    public Session(int sessionId, int computerId, int userID,
-                   LocalDateTime startTime, LocalDateTime endTime,
-                   double hourlyRate, boolean isActive) {
+   // Constructor for DB Loading FIXED
+public Session(int sessionId, int computerId, int userId, String username,
+               LocalDateTime startTime, LocalDateTime endTime, double hourlyRate, boolean isActive, double totalCost) {
 
         this.sessionId = sessionId;
         this.computerId = computerId;
-        this.userID = userID;
+        this.userId = userId;
+        this.username = username;
         this.startTime = startTime;
         this.endTime = endTime;
         this.hourlyRate = hourlyRate;
         this.isActive = isActive;
-    }
+        this.totalCost = totalCost;
+}
 
     public void endSession() {
-        if (!isActive) return;
+        if(!isActive) {
+            throw new IllegalStateException("Session has been ended");
+        }
         this.endTime = LocalDateTime.now();
         this.isActive = false;
+        this.totalCost = calculateCost();
     }
 
     public long getDurationMinutes() {
@@ -56,22 +61,25 @@ public class Session {
     // 🔹 Getters
     public int getSessionId() { return sessionId; }
     public int getComputerId() { return computerId; }
-    public int getUserID() { return userID; }
+    public int getUserID() { return userId; }
     public LocalDateTime getStartTime() { return startTime; }
     public LocalDateTime getEndTime() { return endTime; }
     public boolean isActive() { return isActive; }
     public double getHourlyRate() { return hourlyRate; }
+    public double getTotalCost() { return isActive? calculateCost(): totalCost;}
 
-    public void setUsername(String username){
+
+    //Setters FIXED
+    public void setsessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+    public void setusername(String username) {
         this.username = username;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    // 🔹 Setter (needed for DB auto ID)
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    @Override
+public String toString() {
+    return String.format("Session[id=%d, user=%s, computer=%d, active=%s, cost=$%.2f]",
+            sessionId, username, computerId, isActive, totalCost);
     }
 }
