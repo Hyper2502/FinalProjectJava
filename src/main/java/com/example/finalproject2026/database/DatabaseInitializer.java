@@ -1,4 +1,4 @@
-package database;
+package com.example.finalproject2026.database;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -16,10 +16,15 @@ public class DatabaseInitializer {
                     username VARCHAR(50),
                     email VARCHAR(100) UNIQUE,
                     password VARCHAR(255),
+                    is_admin BOOLEAN DEFAULT FALSE,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """);
 
+            stmt.execute("""
+ALTER TABLE users
+ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT FALSE
+""");
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS workstation (
                     computerID INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -47,5 +52,9 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             throw new RuntimeException("Database initialization failed", e);
         }
+    }
+
+    public static void main(String[] args){
+
     }
 }

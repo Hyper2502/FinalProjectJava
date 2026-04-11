@@ -1,6 +1,6 @@
-package manager;
+package com.example.finalproject2026.manager;
 
-import model.Session;
+import com.example.finalproject2026.model.Session;
 import java.time.format.DateTimeFormatter;
 
 public class  BillingManager {

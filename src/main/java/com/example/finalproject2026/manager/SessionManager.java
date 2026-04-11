@@ -1,9 +1,9 @@
-package manager;
+package com.example.finalproject2026.manager;
 
-import database.UserDAO;
-import database.WorkstationDAO;
-import model.Session;
-import database.SessionDAO;
+import com.example.finalproject2026.database.UserDAO;
+import com.example.finalproject2026.database.WorkstationDAO;
+import com.example.finalproject2026.model.Session;
+import com.example.finalproject2026.database.SessionDAO;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package database;
+package com.example.finalproject2026.database;
 
-import model.Session;
+import com.example.finalproject2026.model.Session;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ public class SessionDAO {
 
             // 1️⃣ computer_id
             ps.setInt(1, session.getComputerId());
-
             // 2️⃣ user_id
             ps.setInt(2, session.getUserID());
 

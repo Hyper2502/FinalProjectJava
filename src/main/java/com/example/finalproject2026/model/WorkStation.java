@@ -1,4 +1,4 @@
-package model;
+package com.example.finalproject2026.model;
 
 public class WorkStation {
 

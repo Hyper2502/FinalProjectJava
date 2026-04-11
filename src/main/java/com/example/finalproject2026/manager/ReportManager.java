@@ -1,6 +1,6 @@
-package manager;
+package com.example.finalproject2026.manager;
 
-import model.Session;
+import com.example.finalproject2026.model.Session;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;

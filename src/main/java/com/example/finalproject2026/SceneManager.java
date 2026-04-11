@@ -12,7 +12,20 @@ public class SceneManager {
 
     public static void switchToDashboard(ActionEvent event){
         try{
-            Parent root = FXMLLoader.load(SceneManager.class.getResource("/resources/com.example.finalproject2026/login.fxml"));
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/main_screen.fxml"));
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root, 1200, 600));
+            stage.setTitle("Dashboard - Cyber Cafe");
+            stage.setMaximized(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void switchToLogin(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/login.fxml"));
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
             stage.setScene(new Scene(root, 1200, 600));
@@ -22,4 +35,5 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
+
 }

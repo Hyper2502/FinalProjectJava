@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject2026.LoginController">
     <children>
         <AnchorPane prefHeight="723.0" prefWidth="1109.0">
             <children>
@@ -29,7 +29,7 @@
                     </font>
                 </Label>
                 <PasswordField fx:id="passwordField" layoutX="349.0" layoutY="454.0" prefHeight="24.0" prefWidth="411.0" />
-                <Button fx:id="loginButton" layoutX="419.0" layoutY="522.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="272.0" text="Login" />
+                <Button fx:id="loginButton" onAction="#handleLogin" layoutX="419.0" layoutY="522.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="272.0" text="Login" />
             </children>
         </AnchorPane>
     </children>

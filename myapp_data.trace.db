@@ -29,7 +29,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "USER_ID" not found; SQL stateme
 	at org.h2.command.Command.executeUpdate(Command.java:256)
 	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
 	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
-	at database.DatabaseInitializer.initialize(DatabaseInitializer.java:33)
+	at com.example.finalproject2026.database.DatabaseInitializer.initialize(DatabaseInitializer.java:33)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:15)
 2026-03-30 21:24:24.286866-06:00 jdbc[5]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "USERNAME" not found; SQL statement:
@@ -53,7 +53,7 @@ VALUES(?,?,?,?,?,?,?)
 	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166)
 	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
 	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1094)
-	at database.SessionDAO.saveSession(SessionDAO.java:19)
+	at com.example.finalproject2026.database.SessionDAO.saveSession(SessionDAO.java:19)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:31)
 2026-03-30 22:03:15.781623-06:00 jdbc[6]: exception
 org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "4 (SESSIONS: ""START_TIME"" TIMESTAMP NOT NULL)"; SQL statement:
@@ -68,7 +68,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "username" not found [42122-224]
 	at org.h2.message.DbException.get(DbException.java:199)
 	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
 	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
-	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at com.example.finalproject2026.database.SessionDAO.getActiveSessions(SessionDAO.java:145)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:41)
 2026-03-30 22:08:38.811676-06:00 jdbc[7]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
@@ -78,7 +78,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
 	at org.h2.message.DbException.get(DbException.java:199)
 	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
 	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
-	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at com.example.finalproject2026.database.SessionDAO.getActiveSessions(SessionDAO.java:145)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:41)
 2026-03-30 22:10:09.375915-06:00 jdbc[6]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "computerID" not found [42122-224]
@@ -88,7 +88,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "computerID" not found [42122-22
 	at org.h2.message.DbException.get(DbException.java:199)
 	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3518)
 	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
-	at database.WorkstationDAO.ComputerIDValidation(WorkstationDAO.java:134)
+	at com.example.finalproject2026.database.WorkstationDAO.ComputerIDValidation(WorkstationDAO.java:134)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:29)
 2026-03-30 22:10:37.495742-06:00 jdbc[7]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
@@ -98,5 +98,5 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "userID" not found [42122-224]
 	at org.h2.message.DbException.get(DbException.java:199)
 	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
 	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:337)
-	at database.SessionDAO.getActiveSessions(SessionDAO.java:145)
+	at com.example.finalproject2026.database.SessionDAO.getActiveSessions(SessionDAO.java:145)
 	at com.example.finalproject2026.main.com.example.finalproject2026.main(com.example.finalproject2026.main.java:41)

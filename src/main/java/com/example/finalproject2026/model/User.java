@@ -1,11 +1,19 @@
-package model;
+package com.example.finalproject2026.model;
 
-import database.UserDAO;
+import com.example.finalproject2026.database.UserDAO;
 
 public class User {
     private String username;
     private String password;
     private String email;
+    private boolean IsAdmin;
+
+    public User(String username, String password, String email, Boolean IsAdmin){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.IsAdmin = IsAdmin;
+    }
 
     public String SaveUser(String username, String password, String email){
         this.username = username;
@@ -13,7 +21,7 @@ public class User {
         this.email = email;
 
         try {
-            UserDAO.save(username, email, password);
+            UserDAO.save(username, email, password, IsAdmin);
             return "User saved!";
         }catch (Exception e){
             e.printStackTrace();
@@ -66,5 +74,13 @@ public class User {
             e.printStackTrace();
             return "Error updating Emmail!";
         }
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public boolean getAdmin(){
+        return IsAdmin;
     }
 }

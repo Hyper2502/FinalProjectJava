@@ -1,4 +1,4 @@
-package model;
+package com.example.finalproject2026.model;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
