@@ -11,7 +11,7 @@ public class WorkstationDAO {
 
     private static final String DB_URL = "jdbc:h2:file:./myapp_data;DB_CLOSE_DELAY=-1";
 
-    // 🔹 SAVE
+    // SAVE
     public static void save(String specifications) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(
@@ -62,7 +62,7 @@ public class WorkstationDAO {
         }
     }
 
-    // 🔹 UPDATE Availability
+    // UPDATE Availability
     public static boolean updateAvailability(int computerID, boolean Available) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement st = c.prepareStatement(

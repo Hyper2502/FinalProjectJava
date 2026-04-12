@@ -4,7 +4,7 @@ import model.Session;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-
+////This Appears because it haven't been connected to the GIU YET so this is Temporarily.
 @SuppressWarnings({"unused", "StringContentionMissingWhitespace", "TextBlockMigration"})
 
 public class ReportManager {

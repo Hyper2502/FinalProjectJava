@@ -4,7 +4,7 @@ import model.Session;
 import java.time.format.DateTimeFormatter;
 
 
-//This Appears because it haven't been connected to the GIU YET so this is Temporarily
+//This Appears because it haven't been connected to the GIU YET so this is Temporarily.
 @SuppressWarnings({"FieldCanBeLocal", "unused", "FieldMayBeFinal"})
 
 public class  BillingManager {

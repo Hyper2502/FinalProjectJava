@@ -7,7 +7,7 @@ import database.SessionDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-//This Appears because it haven't been connected to the GIU YET so this is Temporarily
+//This Appears because it haven't been connected to the GIU YET so this is Temporarily.
 @SuppressWarnings({"FieldCanBeLocal", "unused", "FieldMayBeFinal"})
 
 public class SessionManager {

@@ -58,7 +58,7 @@ public Session(int sessionId, int computerId, int userId, String username,
         return (getDurationMinutes() / 60.0) * hourlyRate;
     }
 
-    // 🔹 Getters
+    // 🔹 Getters FIXED
     public int getSessionId() { return sessionId; }
     public int getComputerId() { return computerId; }
     public int getUserId() { return userId; }

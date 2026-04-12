@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//This is only used to ignore some warning and recommendations before the GIU
 @SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "unused", "DuplicatedCode"})
 
 public class SessionDAO {

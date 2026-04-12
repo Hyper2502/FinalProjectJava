@@ -7,7 +7,7 @@ public class WorkStation {
     private boolean isAvailable;
     private boolean isBroken;
 
-    // 🔹 Constructor
+    // Constructor
     public WorkStation(int computerId, String specs, boolean isAvailable, boolean isBroken) {
         this.computerId = computerId;
         this.specs = specs;
@@ -15,7 +15,7 @@ public class WorkStation {
         this.isBroken = isBroken;
     }
 
-    // 🔹 Getters
+    // Getters
     public int getComputerId() {
         return computerId;
     }
@@ -32,7 +32,7 @@ public class WorkStation {
         return isBroken;
     }
 
-    // 🔹 Setters (NO DATABASE CALLS HERE)
+    // Setters (NO DATABASE CALLS HERE)
     public void setSpecs(String specs) {
         this.specs = specs;
     }

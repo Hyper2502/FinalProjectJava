@@ -28,7 +28,7 @@ public class UserDAO {
         }
     }
 
-    // 🔹 DELETE
+    // DELETE
     public static void delete(String username) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(

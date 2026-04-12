@@ -64,7 +64,7 @@ public class User {
             return "Updated Email!";
         }catch (Exception e){
             e.printStackTrace();
-            return "Error updating Emmail!";
+            return "Error updating Email";
         }
     }
 }
