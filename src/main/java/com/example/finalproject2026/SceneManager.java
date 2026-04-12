@@ -10,6 +10,32 @@ import javafx.event.ActionEvent;
 
 public class SceneManager {
 
+    public static void switchToSessions(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/Sessions.fxml"));
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root, 1200, 600));
+            stage.setTitle("Sessions - Cyber Cafe");
+            stage.setMaximized(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void switchToDevices(ActionEvent event){
+        try{
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/Devices.fxml"));
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root, 1200, 600));
+            stage.setTitle("Devices - Cyber Cafe");
+            stage.setMaximized(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void switchToDashboard(ActionEvent event){
         try{
             Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/main_screen.fxml"));

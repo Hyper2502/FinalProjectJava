@@ -1,5 +1,6 @@
 package com.example.finalproject2026.manager;
 
+import com.example.finalproject2026.database.SessionDAO;
 import com.example.finalproject2026.model.Session;
 import java.time.format.DateTimeFormatter;
 
@@ -24,4 +25,15 @@ public class  BillingManager {
         receipt.append("===========================");
         return receipt.toString();
     }
+
+    public double getTodayRevenue() {
+        return new SessionDAO().getTodayRevenue();
+    }
+
+    public double getMonthlyRevenue() {
+        return new SessionDAO().getMonthlyRevenue();
+    }
+
+
 }
+

@@ -8,6 +8,31 @@ import java.util.List;
 
 public class SessionDAO {
 
+
+    // For "Today: $X.XX" on Dashboard
+    public double getTodayRevenue() {
+        String sql = "SELECT SUM(total_cost) FROM sessions WHERE DATE(start_time) = CURRENT_DATE AND is_active = FALSE";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            return rs.next() ? rs.getDouble(1) : 0.0;
+        } catch (SQLException e) {
+            return 0.0;
+        }
+    }
+
+    // For "All Month: $X.XX" on Dashboard
+    public double getMonthlyRevenue() {
+        String sql = "SELECT SUM(total_cost) FROM sessions WHERE start_time >= DATE_TRUNC('month', CURRENT_DATE) AND is_active = FALSE";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            return rs.next() ? rs.getDouble(1) : 0.0;
+        } catch (SQLException e) {
+            return 0.0;
+        }
+    }
+
     public Session saveSession(Session session) {
         String sql = """
         INSERT INTO sessions

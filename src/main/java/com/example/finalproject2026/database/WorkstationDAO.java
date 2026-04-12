@@ -1,5 +1,6 @@
 package com.example.finalproject2026.database;
 
+import com.example.finalproject2026.model.WorkStation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,12 @@ public class WorkstationDAO {
 
     private static final String DB_URL = "jdbc:h2:file:./myapp_data;DB_CLOSE_DELAY=-1";
 
-    // 🔹 SAVE
-    public static void save(String specifications) {
+    // 🔹 SAVE - returns WorkStation with generated ID
+    public static WorkStation save(String specifications) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(
-                     "INSERT INTO  workstation (specifications, IsAvailable, IsBroken) VALUES (?, ?, ?)")) {
+                     "INSERT INTO workstation (specifications, IsAvailable, IsBroken) VALUES (?, ?, ?)",
+                     Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, specifications);
             ps.setBoolean(2, true);
@@ -20,27 +22,81 @@ public class WorkstationDAO {
 
             ps.executeUpdate();
 
+            // Get generated ID
+            ResultSet rs = ps.getGeneratedKeys();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+            // Return as WorkStation object
+            return new WorkStation(id, specifications, true, false);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    // 🔹 DELETE
-    public static void delete(String username) {
+    // 🔹 DELETE - fixed parameter type
+    public static void delete(int computerID) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(
                      "DELETE FROM workstation WHERE computerID = ?")) {
 
-            ps.setString(1, username);
-            int rows = ps.executeUpdate();
+            ps.setInt(1, computerID);
+            ps.executeUpdate();
 
-            if (rows == 0) {
-                System.out.println("User not found.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 🔹 GET BY ID - new method needed
+    public static WorkStation getById(int computerID) {
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             PreparedStatement ps = c.prepareStatement(
+                     "SELECT * FROM workstation WHERE computerID = ?")) {
+
+            ps.setInt(1, computerID);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return mapToWorkStation(rs);
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 🔹 GET ALL - renamed and returns List<WorkStation>
+    public static List<WorkStation> getAll() {
+        List<WorkStation> list = new ArrayList<>();
+
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             Statement s = c.createStatement();
+             ResultSet rs = s.executeQuery("SELECT * FROM workstation")) {
+
+            while (rs.next()) {
+                list.add(mapToWorkStation(rs));
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        return list;
+    }
+
+    // 🔹 Helper method to convert ResultSet to WorkStation
+    private static WorkStation mapToWorkStation(ResultSet rs) throws SQLException {
+        int id = rs.getInt("computerID");
+        String specs = rs.getString("specifications");
+        boolean available = rs.getBoolean("IsAvailable");
+        boolean broken = rs.getBoolean("IsBroken");
+
+        return new WorkStation(id, specs, available, broken);
     }
 
     // 🔹 UPDATE specifications
@@ -60,12 +116,12 @@ public class WorkstationDAO {
     }
 
     // 🔹 UPDATE Availability
-    public static boolean updateAvailability(int computerID, boolean Available) {
+    public static boolean updateAvailability(int computerID, boolean available) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement st = c.prepareStatement(
                      "UPDATE workstation SET IsAvailable = ? WHERE computerID = ?")) {
 
-            st.setBoolean(1, Available);
+            st.setBoolean(1, available);
             st.setInt(2, computerID);
 
             return st.executeUpdate() > 0;
@@ -91,83 +147,13 @@ public class WorkstationDAO {
         }
     }
 
-    // 🔹 get all workstation
-    public static List<String> getAllWorkstation() {
-        List<String> list = new ArrayList<>();
-
-        try (Connection c = DriverManager.getConnection(DB_URL);
-             Statement s = c.createStatement();
-             ResultSet rs = s.executeQuery(
-                     "SELECT * FROM workstation")) {
-
-            while (rs.next()) {
-                String workstation = String.format("%d: %s | Is broken: %s | Is Available? %s",
-                        rs.getInt("computerID"),
-                        rs.getString("specifications"),
-                        rs.getBoolean("IsBroken"),
-                        rs.getBoolean("IsAvailable")
-                );
-
-                list.add(workstation);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return list;
-    }
+    // 🔹 Validation methods (keep existing)
     public static boolean ComputerIDValidation(int computerID) {
-
-        try (Connection c = DriverManager.getConnection(DB_URL);
-             PreparedStatement st = c.prepareStatement(
-                     "SELECT 1 FROM workstation WHERE computerID = ?")) {
-
-            st.setInt(1, computerID);
-
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                int foundId = rs.getInt("computerID");
-                System.out.println("Found computerID: " + foundId);
-                return true;
-            } else {
-                System.out.println("No matching computerID found.");
-                return false; // 👈 important
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return getById(computerID) != null;
     }
 
     public static boolean ReturnUsage(int computerID) {
-
-        try (Connection c = DriverManager.getConnection(DB_URL);
-             PreparedStatement st = c.prepareStatement(
-                     "SELECT IsAvailable, IsBroken FROM workstation WHERE computerID = ?")) {
-
-            st.setInt(1, computerID);
-
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                boolean foundAvailability = rs.getBoolean("IsAvailable");
-                boolean foundBroken = rs.getBoolean("IsBroken");
-                if(foundAvailability && !foundBroken){
-                    System.out.println("Computer Available");
-                    return true;
-                }else{
-                    System.out.println("Computer not Available");
-                    return false;
-                }
-            } else {
-                System.out.println("No matching computerID found.");
-                return false; // 👈 important
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        WorkStation ws = getById(computerID);
+        return ws != null && ws.isAvailable() && !ws.isBroken();
     }
 }
