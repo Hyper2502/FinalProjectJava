@@ -61,12 +61,12 @@ public Session(int sessionId, int computerId, int userId, String username,
     // 🔹 Getters
     public int getSessionId() { return sessionId; }
     public int getComputerId() { return computerId; }
-    public int getUserID() { return userId; }
+    public int getUserId() { return userId; }
     public LocalDateTime getStartTime() { return startTime; }
     public LocalDateTime getEndTime() { return endTime; }
     public boolean isActive() { return isActive; }
-    public double getHourlyRate() { return hourlyRate; }
-    public double getTotalCost() { return isActive? calculateCost(): totalCost;}
+    public double gethourlyRate() { return hourlyRate; }
+    public double gettotalCost() { return isActive? calculateCost(): totalCost;}
 
 
     //Setters FIXED

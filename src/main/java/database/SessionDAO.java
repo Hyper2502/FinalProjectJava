@@ -6,8 +6,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionDAO {
+@SuppressWarnings({"SqlNoDataSourceInspection", "SqlDialectInspection", "unused", "DuplicatedCode"})
 
+public class SessionDAO {
     public Session saveSession(Session session) {
         String sql = """
         INSERT INTO sessions
@@ -18,41 +19,41 @@ public class SessionDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            // 1️⃣ computer_id
+            // 1 computer_id
             ps.setInt(1, session.getComputerId());
 
-            // 2️⃣ user_id
-            ps.setInt(2, session.getUserID());
+            // 2️ user_id FIXED
+            ps.setInt(2, session.getUserId());
 
-            // 3️⃣ start_time ✅ ALWAYS set
+            // 3️ start_time ✅ ALWAYS set
             ps.setTimestamp(3, Timestamp.valueOf(session.getStartTime()));
 
-            // 4️⃣ end_time
+            // 4️ end_time
             if (session.getEndTime() != null) {
                 ps.setTimestamp(4, Timestamp.valueOf(session.getEndTime()));
             } else {
                 ps.setNull(4, Types.TIMESTAMP);
             }
 
-            // 5️⃣ hourly_rate
-            ps.setDouble(5, session.getHourlyRate());
+            // 5️ hourly_rate FIXED
+            ps.setDouble(5, session.gethourlyRate());
 
-            // 6️⃣ is_active
+            // 6️ is_active FIXED
             ps.setBoolean(6, session.isActive());
 
-            // 7️⃣ total_cost
+            // 7️ total_cost FIXED
             if (session.isActive()) {
                 ps.setNull(7, Types.DOUBLE);
             } else {
-                ps.setDouble(7, session.calculateCost());
+                ps.setDouble(7, session.gettotalCost());
             }
 
             ps.executeUpdate();
 
-            // 🔑 Get generated ID
+            // Get generated ID FIXED
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                session.setSessionId(rs.getInt(1));
+                session.setsessionId(rs.getInt(1));
             }
 
             return session;
@@ -65,12 +66,12 @@ public class SessionDAO {
         String sql = """
                 UPDATE sessions
                 SET end_time = ?, is_active = ?, total_cost = ?
+                
                 WHERE session_id = ?
                 """;
 
         try(Connection conn = DBConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql)) {
-
 
             if(session.getEndTime() != null) {
                 ps.setTimestamp(1, Timestamp.valueOf(session.getEndTime()));
@@ -80,10 +81,11 @@ public class SessionDAO {
             ps.setBoolean(2, session.isActive());
 
             if (!session.isActive()) {
-                ps.setDouble(3, session.calculateCost());
+                ps.setDouble(3, session.gettotalCost());
             }else{
                 ps.setNull(3, Types.DOUBLE);
             }
+
             ps.setInt(4, session.getSessionId());
             ps.executeUpdate();
 
@@ -91,6 +93,7 @@ public class SessionDAO {
             throw new RuntimeException("Failed to update Session", e);
         }
     }
+
     public List<Session> getAllSessions() {
         List<Session> sessions = new ArrayList<>();
         String sql = "Select * from sessions";
@@ -101,19 +104,26 @@ public class SessionDAO {
 
             while (rs.next()) {
 
+
                 LocalDateTime start = rs.getTimestamp("start_time").toLocalDateTime();
 
                 Timestamp endTs = rs.getTimestamp("end_time");
                 LocalDateTime end = (endTs != null) ? endTs.toLocalDateTime() : null;
 
+                double totalCost = rs.getDouble("total_cost");
+                if(rs.wasNull()) totalCost = 0.0;
+
                 Session s = new Session(
                         rs.getInt("session_id"),
                         rs.getInt("computer_id"),
                         rs.getInt("user_id"),
+                        null,
+
                         start,
                         end,
                         rs.getDouble("hourly_rate"),
-                        rs.getBoolean("is_active")
+                        rs.getBoolean("is_active"),
+                        totalCost
                 );
 
                 sessions.add(s);
@@ -144,19 +154,20 @@ public class SessionDAO {
 
                 Timestamp endTs = rs.getTimestamp("end_time");
                 LocalDateTime end = (endTs != null) ? endTs.toLocalDateTime() : null;
+                double totalCost = rs.getDouble("total_cost");
+                if(rs.wasNull()) totalCost = 0.0;
 
                 Session s = new Session(
-                        rs.getInt("session_id"),
-                        rs.getInt("computer_id"),
-                        rs.getInt("user_id"),
-                        start,
-                        end,
-                        rs.getDouble("hourly_rate"),
-                        rs.getBoolean("is_active")
+                    rs.getInt("session_id"),
+                    rs.getInt("computer_id") ,
+                    rs.getInt("user_id"),
+                    rs.getString("username"),
+                    start,
+                    end,
+                    rs.getDouble("hourly_rate"),
+                    rs.getBoolean("is_active"),
+                    totalCost
                 );
-
-                s.setUsername(rs.getString("username"));
-
                 sessions.add(s);
             }
         } catch (SQLException e) {
@@ -178,36 +189,37 @@ public class SessionDAO {
             throw new RuntimeException("Failed to delete Session", e);
         }
     }
-
     public Session getSessionById(int sessionId) {
         String sql = "SELECT * FROM sessions WHERE session_id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try(Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)){
 
-            ps.setInt(1, sessionId);
+            ps.setInt(1,sessionId);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            if(rs.next()){
                 LocalDateTime start = rs.getTimestamp("start_time").toLocalDateTime();
-
                 Timestamp endTs = rs.getTimestamp("end_time");
                 LocalDateTime end = (endTs != null) ? endTs.toLocalDateTime() : null;
+
+                double totalCost = rs.getDouble("total_cost");
+                if(rs.wasNull()) totalCost = 0.0;
 
                 return new Session(
                         rs.getInt("session_id"),
                         rs.getInt("computer_id"),
                         rs.getInt("user_id"),
+                        null,
                         start,
                         end,
                         rs.getDouble("hourly_rate"),
-                        rs.getBoolean("is_active")
+                        rs.getBoolean("is_active"),
+                        totalCost
                 );
             }
-
             return null;
-
-        } catch (SQLException e) {
+        } catch(SQLException e){
             throw new RuntimeException("Failed to get session", e);
         }
     }

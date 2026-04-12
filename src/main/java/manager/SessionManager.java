@@ -7,6 +7,8 @@ import database.SessionDAO;
 import java.util.ArrayList;
 import java.util.List;
 
+//This Appears because it haven't been connected to the GIU YET so this is Temporarily
+@SuppressWarnings({"FieldCanBeLocal", "unused", "FieldMayBeFinal"})
 
 public class SessionManager {
     private List<Session> sessions;
@@ -34,7 +36,7 @@ public class SessionManager {
 
     public Session startSession(int computerId, String username) {
 
-        // 🔹 Validate inputs
+        // Validate inputs
         if (!WorkstationDAO.ComputerIDValidation(computerId)) {
             throw new IllegalStateException("Computer does not exist.");
         }
@@ -43,18 +45,19 @@ public class SessionManager {
             throw new IllegalStateException("User does not exist.");
         }
 
-        // 🔹 Check availability
+        // Check availability
         if (!WorkstationDAO.ReturnUsage(computerId)) {
             throw new IllegalStateException("Computer is not available.");
         }
 
         int userID = UserDAO.getUserID(username);
 
-        // 🔹 Create session (ID will be assigned by DB)
+        // Create session (ID will be assigned by DB) FIXED
         if(userID >= 0) {
-            Session session = new Session(0, computerId, userID, DEFAULT_RATE);
+            Session session = new Session(nextSessionId++, computerId, userID,DEFAULT_RATE);
             Session savedSession = sessionDAO.saveSession(session);
             WorkstationDAO.updateAvailability(computerId, false);
+
             return savedSession;
         }else{
             throw new IllegalStateException("Not Valid User ID");
