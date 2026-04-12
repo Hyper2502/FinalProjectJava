@@ -216,4 +216,21 @@ public class UserDAO {
 
         return list;
     }
+
+    public static List<String> getAllUsernames() {
+        List<String> usernames = new ArrayList<>();
+        String sql = "SELECT username FROM users ORDER BY username";
+
+        try (Connection c = DriverManager.getConnection(DB_URL);
+             Statement s = c.createStatement();
+             ResultSet rs = s.executeQuery(sql)) {
+
+            while (rs.next()) {
+                usernames.add(rs.getString("username"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usernames;
+    }
 }
