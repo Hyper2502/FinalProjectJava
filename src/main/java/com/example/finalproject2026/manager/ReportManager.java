@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReportManager {
+@SuppressWarnings({"unused", "StringContentionMissingWhitespace", "TextBlockMigration"})
 
+public class ReportManager {
     public String generateRevenueReport(List<Session>Sessions){
         double activeRevenue = 0.0;
         double completedRevenue = 0.0;
@@ -23,7 +24,7 @@ public class ReportManager {
             }
         }
             return String.format(
-                    "===\nRevenue Report Results===" +
+                    "===\nRevenue Report Results===\n" +
                             "Active Sessions: %d (Current $%.2f)\n" +
                             "Completed Sessions: %d (Collected $%.2f)\n" +
 
@@ -46,7 +47,7 @@ public class ReportManager {
 
             for(Map.Entry<Integer, Integer>entry : computerUsage.entrySet()) {
                 report.append("Computer #").append(entry.getKey()).append(": ")
-                        .append(entry.getValue()).append("Sessions\n");
+                        .append(entry.getValue()).append(" Sessions\n");
             }
             return report.toString();
     }
@@ -62,13 +63,13 @@ public class ReportManager {
         double avgMinutes = totalSessions > 0 ? (double) totalMinutes/totalSessions : 0;
 
         return String.format(
-                "=====\nDaily Summary Results: ========" +
+                "=====\nDaily Summary Results: %s\n========\n" +
                 "Total Sessions: %d\n" +
                         "Total Revenue: $%.2f\n" +
                         "Total Usage: %d minutes\n" +
                         "Average Session: %.1f minutes \n" +
                         "==================================",
-                date, totalSessions, totalRevenue,totalMinutes,avgMinutes
+                date, totalSessions, totalRevenue, totalMinutes, avgMinutes
         );
     }
 }
