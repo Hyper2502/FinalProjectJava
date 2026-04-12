@@ -14,7 +14,7 @@ public class Session {
     private final double hourlyRate;
     private double totalCost;
 
-    // Constructor for NEW session FIXED
+    // 1️⃣ Constructor for NEW session (4 params) - USED BY SessionManager
     public Session(int sessionId, int computerId, int userId, double hourlyRate) {
         this.sessionId = sessionId;
         this.computerId = computerId;
@@ -25,20 +25,33 @@ public class Session {
         this.totalCost = 0.0;
     }
 
-   // Constructor for DB Loading FIXED
-public Session(int sessionId, int computerId, int userId, String username,
-               LocalDateTime startTime, LocalDateTime endTime, double hourlyRate, boolean isActive, double totalCost) {
-
+    // 2️⃣ Constructor for DB Loading (7 params)
+    public Session(int sessionId, int computerId, int userId,
+                   LocalDateTime startTime, LocalDateTime endTime,
+                   double hourlyRate, boolean isActive) {
         this.sessionId = sessionId;
         this.computerId = computerId;
         this.userId = userId;
-        this.username = username;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.hourlyRate = hourlyRate;
+        this.isActive = isActive;
+        this.totalCost = 0.0;
+    }
+
+    // 3️⃣ Constructor for DB Loading (8 params)
+    public Session(int sessionId, int computerId, int userId,
+                   LocalDateTime startTime, LocalDateTime endTime,
+                   double hourlyRate, boolean isActive, double totalCost) {
+        this.sessionId = sessionId;
+        this.computerId = computerId;
+        this.userId = userId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.hourlyRate = hourlyRate;
         this.isActive = isActive;
         this.totalCost = totalCost;
-}
+    }
 
     public void endSession() {
         if(!isActive) {
@@ -58,28 +71,24 @@ public Session(int sessionId, int computerId, int userId, String username,
         return (getDurationMinutes() / 60.0) * hourlyRate;
     }
 
-    // 🔹 Getters
+    // Getters
     public int getSessionId() { return sessionId; }
     public int getComputerId() { return computerId; }
     public int getUserId() { return userId; }
+    public String getUsername() { return username; }
     public LocalDateTime getStartTime() { return startTime; }
     public LocalDateTime getEndTime() { return endTime; }
     public boolean isActive() { return isActive; }
-    public double gethourlyRate() { return hourlyRate; }
-    public double gettotalCost() { return isActive? calculateCost(): totalCost;}
+    public double getHourlyRate() { return hourlyRate; }
+    public double getTotalCost() { return isActive ? calculateCost() : totalCost; }
 
-
-    //Setters FIXED
-    public void setsessionId(int sessionId) {
-        this.sessionId = sessionId;
-    }
-    public void setusername(String username) {
-        this.username = username;
-    }
+    // Setters
+    public void setSessionId(int sessionId) { this.sessionId = sessionId; }
+    public void setUsername(String username) { this.username = username; }
 
     @Override
-public String toString() {
-    return String.format("Session[id=%d, user=%s, computer=%d, active=%s, cost=$%.2f]",
-            sessionId, username, computerId, isActive, totalCost);
+    public String toString() {
+        return String.format("Session[id=%d, user=%s, computer=%d, active=%s, cost=$%.2f]",
+                sessionId, username, computerId, isActive, totalCost);
     }
 }

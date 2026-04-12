@@ -24,7 +24,7 @@ public class  BillingManager {
         }
 
         receipt.append("Duration:").append(session.getDurationMinutes()).append("Minutes\n");
-        receipt.append("Hourly Rate: $").append(session.gethourlyRate()).append("/hour\n");
+        receipt.append("Hourly Rate: $").append(session.getHourlyRate()).append("/hour\n");
         receipt.append("Total: $").append(String.format("%.2f",session.calculateCost())).append("\n");
         receipt.append("===========================");
         return receipt.toString();

@@ -46,7 +46,7 @@ public class SessionDAO {
             // 1️⃣ computer_id
             ps.setInt(1, session.getComputerId());
             // 2️⃣ user_id
-            ps.setInt(2, session.getUserID());
+            ps.setInt(2, session.getUserId());
 
             // 3️⃣ start_time ✅ ALWAYS set
             ps.setTimestamp(3, Timestamp.valueOf(session.getStartTime()));
