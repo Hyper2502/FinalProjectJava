@@ -167,10 +167,10 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Button fx:id="startSessionBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="593.0" text="Start Session" />
-                        <Button fx:id="endSessionBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="598.0" text="End Session" />
-                        <Button fx:id="reportIssueBtn" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="630.0" text="Report Issue" />
-                        <Button fx:id="createDeviceBtn" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="662.0" text="Create New Device" />
+                        <Button fx:id="deleteUserBtn" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="35.0" prefWidth="593.0" text="Delete User" />
+                        <Button fx:id="deleteDeviceBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDeleteDevice" prefHeight="35.0" prefWidth="598.0" text="Delete Device" />
+                        <Button fx:id="createUserBtn" layoutX="10.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="35.0" prefWidth="630.0" text="Create New User" />
+                        <Button fx:id="createDeviceBtn" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleCreateDevice" prefHeight="35.0" prefWidth="662.0" text="Create New Device" />
                      </children>
                   </VBox>
                   <VBox layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="1090.0" style="-fx-border-style: dashed; -fx-border-width: 0.8;" GridPane.columnIndex="1">

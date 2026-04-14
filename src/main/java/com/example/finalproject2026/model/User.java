@@ -80,6 +80,11 @@ public class User {
         return password;
     }
 
+    public String getUsername() {return username;}
+
+    public String getEmail() {return email;}
+
+
     public boolean getAdmin(){
         return IsAdmin;
     }

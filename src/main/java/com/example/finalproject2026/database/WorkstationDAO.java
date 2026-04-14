@@ -38,16 +38,17 @@ public class WorkstationDAO {
     }
 
     // 🔹 DELETE - fixed parameter type
-    public static void delete(int computerID) {
+    public static boolean delete(int computerID) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(
                      "DELETE FROM workstation WHERE computerID = ?")) {
 
             ps.setInt(1, computerID);
-            ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 

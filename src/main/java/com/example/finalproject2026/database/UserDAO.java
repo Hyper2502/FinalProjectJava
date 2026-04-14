@@ -31,20 +31,18 @@ public class UserDAO {
     }
 
     // 🔹 DELETE
-    public static void delete(String username) {
+    public static boolean delete(String username) {
         try (Connection c = DriverManager.getConnection(DB_URL);
              PreparedStatement ps = c.prepareStatement(
                      "DELETE FROM users WHERE username = ?")) {
 
             ps.setString(1, username);
-            int rows = ps.executeUpdate();
+            return ps.executeUpdate() > 0;
 
-            if (rows == 0) {
-                System.out.println("User not found.");
-            }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 
