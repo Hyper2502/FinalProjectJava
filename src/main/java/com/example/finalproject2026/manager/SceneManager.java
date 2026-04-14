@@ -1,4 +1,4 @@
-package com.example.finalproject2026;
+package com.example.finalproject2026.manager;
 
 
 import javafx.fxml.FXMLLoader;
@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+
+import java.io.IOException;
 
 public class SceneManager {
 
@@ -61,5 +63,14 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
-
+    public static void switchToReports(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/com/example/finalproject2026/billing-view.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Billing");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

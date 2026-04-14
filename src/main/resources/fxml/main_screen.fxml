@@ -46,7 +46,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="604.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject2026.DashboardController">
+<VBox prefHeight="604.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.finalproject2026.Controller.DashboardController">
    <children>
       <BorderPane prefHeight="23.0" prefWidth="1113.0">
          <top>
@@ -57,6 +57,8 @@
                         <Button layoutX="16.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleDashboardMenu" prefHeight="29.0" prefWidth="147.0" text="Dashboard" />
                         <Button layoutX="163.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleDevicesMenu" prefHeight="29.0" prefWidth="147.0" text="Devices" />
                         <Button layoutX="310.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleSessionsMenu" prefHeight="29.0" prefWidth="147.0" text="Sessions" />
+                        <Button layoutX="457.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleBillingMenu" prefHeight="29.0" prefWidth="147.0" text="Billing" />
+                        <Button layoutX="604.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleReportsMenu" prefHeight="29.0" prefWidth="147.0" text="Reports" />
                      </children>
                   </AnchorPane>
                </children>

@@ -1,4 +1,4 @@
-package com.example.finalproject2026;
+package com.example.finalproject2026.manager;
 
 import com.example.finalproject2026.database.UserDAO;
 import com.example.finalproject2026.model.User;

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="600.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.finalproject2026.Controller.BillingController">
+
+    <VBox prefHeight="42.0" prefWidth="800.0">
+        <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <children>
+                    <Button layoutX="16.0" layoutY="9.0" mnemonicParsing="false"
+                            onAction="#handleDashboardMenu" prefHeight="29.0"
+                            prefWidth="147.0" text="Dashboard" />
+                    <Button layoutX="163.0" layoutY="9.0" mnemonicParsing="false"
+                            onAction="#handleDevicesMenu" prefHeight="29.0"
+                            prefWidth="147.0" text="Devices" />
+                    <Button layoutX="310.0" layoutY="9.0" mnemonicParsing="false"
+                            onAction="#handleSessionsMenu" prefHeight="29.0"
+                            prefWidth="147.0" text="Sessions" />
+                    <Button layoutX="457.0" layoutY="9.0" mnemonicParsing="false"
+                            onAction="#handleBillingMenu" prefHeight="29.0"
+                            prefWidth="147.0" text="Billing" />
+                    <Button layoutX="604.0" layoutY="9.0" mnemonicParsing="false"
+                            onAction="#handleReportsMenu" prefHeight="29.0"
+                            prefWidth="147.0" text="Reports" />
+                </children>
+            </AnchorPane>
+        </children>
+    </VBox>
+
+
+    <VBox prefHeight="558.0" prefWidth="800.0" spacing="15.0" style="-fx-padding: 20px;">
+        <children>
+
+            <Label text="BILLING &amp; RECEIPT" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+
+            <!-- Session Input -->
+            <HBox spacing="10.0">
+                <children>
+                    <Label text="Session ID:" />
+                    <TextField fx:id="sessionIdField" promptText="Enter session ID" prefWidth="150.0" />
+                    <Button onAction="#handleGenerateReceipt" text="Generate Receipt"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+                    <Button onAction="#handleEndAndBill" text="End &amp; Bill"
+                            style="-fx-background-color: #f44336; -fx-text-fill: white;" />
+                    <Button onAction="#handleGenerateRevenueReport" text="Revenue Report"
+                            style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+                </children>
+            </HBox>
+
+            <!-- Receipt Display -->
+            <Label text="Receipt / Report:" />
+            <TextArea fx:id="receiptArea" editable="false" prefHeight="200.0"
+                      wrapText="true" style="-fx-font-family: monospace;" />
+
+            <!-- Completed Sessions Table -->
+            <Label text="Completed Sessions:" />
+            <TableView fx:id="completedSessionsTable" prefHeight="150.0">
+                <columns>
+                    <TableColumn fx:id="sessionIdCol" text="Session ID" prefWidth="100.0" />
+                    <TableColumn fx:id="computerCol" text="Computer" prefWidth="100.0" />
+                    <TableColumn fx:id="userCol" text="User" prefWidth="100.0" />
+                    <TableColumn fx:id="durationCol" text="Duration" prefWidth="100.0" />
+                    <TableColumn fx:id="totalCostCol" text="Total Cost" prefWidth="100.0" />
+                </columns>
+            </TableView>
+
+            <!-- Statistics -->
+            <HBox spacing="20.0">
+                <children>
+                    <VBox style="-fx-background-color: #e3f2fd; -fx-padding: 10; -fx-background-radius: 5;">
+                        <children>
+                            <Label text="Today's Revenue" style="-fx-font-weight: bold;" />
+                            <Label fx:id="todayRevenueLabel" style="-fx-font-size: 18;" />
+                        </children>
+                    </VBox>
+                    <VBox style="-fx-background-color: #e8f5e9; -fx-padding: 10; -fx-background-radius: 5;">
+                        <children>
+                            <Label text="This Month" style="-fx-font-weight: bold;" />
+                            <Label fx:id="monthRevenueLabel" style="-fx-font-size: 18;" />
+                        </children>
+                    </VBox>
+                    <VBox style="-fx-background-color: #fff3e0; -fx-padding: 10; -fx-background-radius: 5;">
+                        <children>
+                            <Label text="Active Workstations" style="-fx-font-weight: bold;" />
+                            <Label fx:id="activeWorkstationsLabel" style="-fx-font-size: 18;" />
+                        </children>
+                    </VBox>
+                    <VBox style="-fx-background-color: #f3e5f5; -fx-padding: 10; -fx-background-radius: 5;">
+                        <children>
+                            <Label text="Total Workstations" style="-fx-font-weight: bold;" />
+                            <Label fx:id="totalWorkstationsLabel" style="-fx-font-size: 18;" />
+                        </children>
+                    </VBox>
+                </children>
+            </HBox>
+        </children>
+    </VBox>
+</VBox>

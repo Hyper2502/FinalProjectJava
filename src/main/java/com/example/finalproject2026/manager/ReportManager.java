@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings({"unused", "StringContentionMissingWhitespace", "TextBlockMigration"})
+
 
 public class ReportManager {
     public String generateRevenueReport(List<Session>Sessions){

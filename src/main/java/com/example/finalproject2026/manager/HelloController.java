@@ -1,4 +1,4 @@
-package com.example.finalproject2026;
+package com.example.finalproject2026.manager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -1,14 +1,12 @@
-package com.example.finalproject2026;
+package com.example.finalproject2026.Controller;
 
 import com.example.finalproject2026.database.WorkstationDAO;
+import com.example.finalproject2026.manager.SceneManager;
 import com.example.finalproject2026.model.WorkStation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -18,12 +16,18 @@ import java.util.ResourceBundle;
 
 public class DevicesController implements Initializable {
 
-    @FXML private Label computerNameLabel;
-    @FXML private TextField specsField;  // Changed from computerNameField
-    @FXML private CheckBox isBrokenCheckBox;
-    @FXML private CheckBox isAvailableCheckBox;  // Added for visibility
-    @FXML private VBox computerListVBox;
-    @FXML private Label statusLabel;  // Added to show status
+    @FXML
+    private Label computerNameLabel;
+    @FXML
+    private TextField specsField;  // Changed from computerNameField
+    @FXML
+    private CheckBox isBrokenCheckBox;
+    @FXML
+    private CheckBox isAvailableCheckBox;  // Added for visibility
+    @FXML
+    private VBox computerListVBox;
+    @FXML
+    private Label statusLabel;  // Added to show status
 
     private List<WorkStation> workstations;
     private WorkStation selectedWorkstation;
@@ -89,10 +93,14 @@ public class DevicesController implements Initializable {
 
     private Color getStatusColor(String status) {
         switch (status) {
-            case "BROKEN": return Color.RED;
-            case "IN_USE": return Color.ORANGE;
-            case "AVAILABLE": return Color.GREEN;
-            default: return Color.GRAY;
+            case "BROKEN":
+                return Color.RED;
+            case "IN_USE":
+                return Color.ORANGE;
+            case "AVAILABLE":
+                return Color.GREEN;
+            default:
+                return Color.GRAY;
         }
     }
 
@@ -164,5 +172,11 @@ public class DevicesController implements Initializable {
     @FXML
     private void handleSessionsMenu() {
         SceneManager.switchToDevices(new ActionEvent());
+    }
+
+
+    @FXML
+    private void handleBillingMenu(ActionEvent event) {
+        SceneManager.switchToReports(event);
     }
 }

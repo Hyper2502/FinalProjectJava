@@ -1,18 +1,14 @@
-package com.example.finalproject2026;
+package com.example.finalproject2026.Controller;
 
+import com.example.finalproject2026.manager.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
-import com.example.finalproject2026.manager.BillingManager;
-import com.example.finalproject2026.manager.WorkstationManager;
+
 import com.example.finalproject2026.model.WorkStation;
 
 import java.net.URL;
@@ -20,6 +16,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.finalproject2026.manager.ServiceLocator.getReportManager;
 
 public class DashboardController implements Initializable {
 
@@ -84,12 +82,28 @@ public class DashboardController implements Initializable {
 
     private void updateBilling() {
         Platform.runLater(() -> {
-            double today = billingManager.getTodayRevenue();
-            double month = billingManager.getMonthlyRevenue();
+            double todayRevenue = calculateMonthRevenue();
+            double monthlyRevenue = calculateMonthRevenue();
 
-            todayRevenueLabel.setText(String.format("$%.2f", today));
-            monthRevenueLabel.setText(String.format("$%.2f", month));
+            todayRevenueLabel.setText(String.format("$%.2f", todayRevenue));
+            monthRevenueLabel.setText(String.format("$%.2f", monthlyRevenue));
         });
+    }
+
+    private double calculateTodayRevenue() {
+        var sessionManager = ServiceLocator.getSessionManager();
+        return sessionManager.getAllSessions().stream()
+                .filter(s -> !s.isActive())
+                .mapToDouble(s -> s.calculateCost())
+                .sum();
+    }
+
+    private double calculateMonthRevenue() {
+        var sessionManager = ServiceLocator.getSessionManager();
+        return sessionManager.getAllSessions().stream()
+                .filter(s -> !s.isActive())
+                .mapToDouble(s -> s.calculateCost())
+                .sum();
     }
 
     // ==================== BUTTON HANDLERS ====================
@@ -228,6 +242,18 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void handleSessionsMenu() {
-        SceneManager.switchToSessions(new ActionEvent(activeCountLabel, null));
+        SceneManager.switchToSessions
+                (new ActionEvent(activeCountLabel, null));
+    }
+
+    @FXML
+    private void handleBillingMenu(ActionEvent event) {
+        SceneManager.switchToReports(event);
     }
 }
+
+
+
+
+
+
