@@ -65,7 +65,7 @@ public class SceneManager {
     }
     public static void switchToReports(ActionEvent event) {
         try{
-            Parent root = FXMLLoader.load(SceneManager.class.getResource("/com/example/finalproject2026/billing-view.fxml"));
+            Parent root = FXMLLoader.load(SceneManager.class.getResource("/fxml/billings.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Billing");

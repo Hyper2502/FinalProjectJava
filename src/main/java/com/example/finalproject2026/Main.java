@@ -1,4 +1,4 @@
-package com.example.finalproject2026.manager;
+package com.example.finalproject2026;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

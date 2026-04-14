@@ -247,10 +247,16 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    private void handleReportsMenu(ActionEvent event) {
+        SceneManager.switchToReports(event);
+    }
+
+    @FXML
     private void handleBillingMenu(ActionEvent event) {
         SceneManager.switchToReports(event);
     }
 }
+
 
 
 

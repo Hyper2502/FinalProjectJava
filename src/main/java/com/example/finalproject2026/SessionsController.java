@@ -1,6 +1,6 @@
 package com.example.finalproject2026;
 
-import com.example.finalproject2026.SceneManager;
+import com.example.finalproject2026.manager.SceneManager;
 import com.example.finalproject2026.database.UserDAO;
 import com.example.finalproject2026.database.WorkstationDAO;
 import com.example.finalproject2026.manager.SessionManager;

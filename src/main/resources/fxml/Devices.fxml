@@ -9,7 +9,7 @@
 <VBox prefHeight="604.0" prefWidth="1113.0"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.finalproject2026.DevicesController">
+      fx:controller="com.example.finalproject2026.Controller.DevicesController">
    <children>
       <!-- Menu Bar -->
       <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="1116.0">

@@ -158,15 +158,14 @@ public class DevicesController implements Initializable {
     }
 
     @FXML
-    private void handleDashboardMenu() {
-        // Already on dashboard, just refresh
-        SceneManager.switchToDashboard(new ActionEvent());
+    private void handleDashboardMenu(ActionEvent event) {
+        SceneManager.switchToDashboard(event);
     }
 
     @FXML
-    private void handleDevicesMenu() {
+    private void handleDevicesMenu(ActionEvent event) {
         // Need to get the event - use a workaround
-        SceneManager.switchToDevices(new ActionEvent());
+        SceneManager.switchToDevices(event);
     }
 
     @FXML
